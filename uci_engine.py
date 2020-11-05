@@ -1,5 +1,7 @@
 from subprocess import Popen, PIPE
 
+startpos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
 
 # Interface for running and communicating with a UCI engine
 class Engine:
@@ -13,10 +15,43 @@ class Engine:
     def _readline(self):
         return self._process.stdout.readline()
 
+
+    ### UCI commands
+
+    def uci(self):
+        self._msg_engine("uci\n")
+
+    def ucinewgame(self):
+        self._msg_engine("ucinewgame\n")
+
+    def isready(self):
+        self._msg_engine("isready\n")
+
+    def stop(self):
+        self._msg_engine("stop\n")
+
+    def quit(self):
+        self._msg_engine("quit\n")
+
     def set_option(self, name, value):
         self._msg_engine("setoption name %s value %d\n" %(name, value))
 
-    # Returns the evaluation relative to white pov
+    def position(self, fen=startpos, moves=None):
+        self._msg_engine("position fen %s%s\n" % (fen, " moves %s" % moves if moves else ""))
+
+    # limitstring can be used to provide limits not supported by arguments other arguments
+    def go(self, mate=None, movetime=None, limitstring=""):
+        if mate:
+            limitstring += " mate %d" % mate
+        if movetime:
+            limitstring += " movetime %d" % movetime
+        self._msg_engine("go %s\n" % limitstring)
+
+
+    ### Non-UCI commands
+
+    # The engine should respond with an evaluation from white's point of view
     def eval(self, fen):
-        self._msg_engine("position fen " + fen + "\neval\n")
+        self.position(fen)
+        self._msg_engine("eval\n")
         return int(self._readline())

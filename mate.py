@@ -8,9 +8,9 @@ def mate_test(engine_path, test_path, length, limit_in_ms):
     engine = Engine(engine_path)
 
     def find_mate(fen):
-        engine._msg_engine("ucinewgame\n")
-        engine._msg_engine("position fen %s\n" % fen)
-        engine._msg_engine("go mate %d movetime %d\n" % (length, limit_in_ms))
+        engine.ucinewgame()
+        engine.position(fen)
+        engine.go(mate=length, movetime=limit_in_ms)
         mate_found = False
 
         while True:
