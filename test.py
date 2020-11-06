@@ -1,7 +1,7 @@
 from uci_engine import Engine
 
 
-# Tests whether the engine finds a short enough mate within the time limit
+# Test template
 def test(engine_path, test_path, test_func):
 
     engine = Engine(engine_path)
