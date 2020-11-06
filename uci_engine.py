@@ -55,3 +55,14 @@ class Engine:
         self.position(fen)
         self._msg_engine("eval\n")
         return int(self._readline())
+
+    def perft(self, fen, depth):
+        self._msg_engine("perft %d %s\n" % (depth, fen))
+        while True:
+            response = self._readline()
+            if response.isdigit():
+                return int(response)
+            for token in ["Nodes:", "nodes:", "Nodes", "nodes"]:
+                if token in response:
+                    response = response.split()
+                    return int(response[response.index(token) + 1])
