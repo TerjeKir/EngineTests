@@ -1,4 +1,3 @@
-from uci_engine import Engine
 from test import test
 
 
