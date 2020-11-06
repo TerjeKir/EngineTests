@@ -9,9 +9,9 @@ def eval_symmetry(engine_path, test_path):
 
     def symmetry_test(engine, fen):
         fen = ' '.join(fen.split()[:4])
-        mirror_board = chess.Board()
-        mirror_board.set_epd(fen)
-        mirror_board = mirror_board.mirror()
+        board = chess.Board()
+        board.set_epd(fen)
+        mirror_board = board.mirror()
 
         eval        =  engine.eval(fen)
         mirror_eval = -engine.eval(mirror_board.fen())
@@ -19,6 +19,7 @@ def eval_symmetry(engine_path, test_path):
         return eval == mirror_eval
 
     test(engine_path, test_path, symmetry_test)
+
 
 if __name__ == "__main__":
     eval_symmetry("weiss.exe", "EPDs/all.epd")

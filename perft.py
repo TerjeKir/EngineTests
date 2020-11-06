@@ -9,9 +9,11 @@ def perft(engine_path, test_path, depth):
         result = engine.perft(fen, depth)
         tokens = fen.split()
         solution = int(tokens[1 + tokens.index(";D%d" % depth)])
+
         return result == solution
 
     test(engine_path, test_path, test_perft)
+
 
 if __name__ == "__main__":
     perft("weiss.exe", "EPDs/perftsuite.epd", 4)

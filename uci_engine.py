@@ -56,6 +56,8 @@ class Engine:
         self._msg_engine("eval\n")
         return int(self._readline())
 
+    # The engine should either print only the node count, or a string where
+    # the node count follows on of "Nodes:", "nodes:", "Nodes", "nodes"
     def perft(self, fen, depth):
         self._msg_engine("perft %d %s\n" % (depth, fen))
         while True:
