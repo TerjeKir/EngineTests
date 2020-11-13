@@ -22,4 +22,4 @@ def mate_test(test_path, length, limit_in_ms):
 
 
 if __name__ == "__main__":
-    mate_test("EPDs/mate3-w.epd", 3, 1000)
+    mate_test("mate3-w.epd", 3, 1000)

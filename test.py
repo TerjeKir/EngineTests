@@ -5,13 +5,13 @@ import os
 engine_path = "engines/"
 
 # Test template
-def test(test_path, test_func):
+def test(filename, test_func):
 
     for engine_name in os.listdir(engine_path):
 
         engine = Engine(engine_name, engine_path)
 
-        with open(test_path, 'r') as fens:
+        with open("testfiles/" + filename, 'r') as fens:
             failures = 0
             for count, fen in enumerate(fens):
                 print('\r[%4d] ' % (count+1), end='')
@@ -25,4 +25,4 @@ def test(test_path, test_func):
 
 
 if __name__ == "__main__":
-    test("EPDs/mate3-w.epd", lambda x, y : True)
+    test("mate3-w.epd", lambda x, y : True)

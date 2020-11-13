@@ -15,4 +15,4 @@ def perft_test(test_path, depth):
 
 
 if __name__ == "__main__":
-    perft_test("EPDs/perftsuite.epd", 4)
+    perft_test("perftsuite.epd", 4)

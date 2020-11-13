@@ -21,4 +21,4 @@ def eval_symmetry(test_path):
 
 
 if __name__ == "__main__":
-    eval_symmetry("EPDs/all.epd")
+    eval_symmetry("all.epd")
