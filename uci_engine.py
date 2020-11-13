@@ -8,6 +8,8 @@ class Engine:
 
     def __init__(self, path, cwd=None):
         self._process = Popen(path, shell=True, cwd=cwd, stdin=PIPE, stdout=PIPE, universal_newlines=True, bufsize=1)
+        self.uci()
+        self.isready()
 
     def _msg_engine(self, msg):
         self._process.stdin.write(msg)
@@ -20,12 +22,18 @@ class Engine:
 
     def uci(self):
         self._msg_engine("uci\n")
+        while True:
+            if self._readline() == "uciok\n":
+                break
 
     def ucinewgame(self):
         self._msg_engine("ucinewgame\n")
 
     def isready(self):
         self._msg_engine("isready\n")
+        while True:
+            if self._readline() == "readyok\n":
+                break
 
     def stop(self):
         self._msg_engine("stop\n")
@@ -57,14 +65,16 @@ class Engine:
         return int(self._readline())
 
     # The engine should either print only the node count, or a string where
-    # the node count follows on of "Nodes:", "nodes:", "Nodes", "nodes"
+    # the node count is the first number to follow 'nodes'
     def perft(self, fen, depth):
         self._msg_engine("perft %d %s\n" % (depth, fen))
         while True:
-            response = self._readline()
+            response = self._readline().lower()
+            # A line with just a single number should be the perft count
             if response.isdigit():
                 return int(response)
-            for token in ["Nodes:", "nodes:", "Nodes", "nodes"]:
-                if token in response:
-                    response = response.split()
-                    return int(response[response.index(token) + 1])
+            # A line with 'nodes' should have the perft count as the first subsequent number
+            if 'nodes' in response:
+                for token in response.split('nodes')[1].split():
+                    if token.isdigit():
+                        return int(token)
