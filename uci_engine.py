@@ -6,8 +6,8 @@ startpos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 # Interface for running and communicating with a UCI engine
 class Engine:
 
-    def __init__(self, path):
-        self._process = Popen(path, shell=True, stdin=PIPE, stdout=PIPE, universal_newlines=True, bufsize=1)
+    def __init__(self, path, cwd=None):
+        self._process = Popen(path, shell=True, cwd=cwd, stdin=PIPE, stdout=PIPE, universal_newlines=True, bufsize=1)
 
     def _msg_engine(self, msg):
         self._process.stdin.write(msg)
