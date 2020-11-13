@@ -4,9 +4,9 @@ from test import test
 
 # Tests whether evaluation is symmetrical or not
 # Relies on 'eval' command returning an evaluation from white p.o.v.
-def eval_symmetry(engine_path, test_path):
+def eval_symmetry(test_path):
 
-    def symmetry_test(engine, fen):
+    def symmetry(engine, fen):
         fen = ' '.join(fen.split()[:4])
         board = chess.Board()
         board.set_epd(fen)
@@ -17,8 +17,8 @@ def eval_symmetry(engine_path, test_path):
 
         return eval == mirror_eval
 
-    test(engine_path, test_path, symmetry_test)
+    test(test_path, symmetry)
 
 
 if __name__ == "__main__":
-    eval_symmetry("weiss.exe", "EPDs/all.epd")
+    eval_symmetry("EPDs/all.epd")

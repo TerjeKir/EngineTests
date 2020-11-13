@@ -1,21 +1,28 @@
 from uci_engine import Engine
+import os
 
+
+engine_path = "engines/"
 
 # Test template
-def test(engine_path, test_path, test_func):
+def test(test_path, test_func):
 
-    engine = Engine(engine_path)
+    for engine_name in os.listdir(engine_path):
 
-    with open(test_path, 'r') as fens:
-        failures = 0
-        for count, fen in enumerate(fens):
-            print('\r[%4d] ' % (count+1), end='')
-            if not test_func(engine, fen):
-                print(fen, end='')
-                failures += 1
+        engine = Engine(engine_name, engine_path)
 
-    print("\rTest: %s" % ("%d failures" % failures if failures else "success"))
+        with open(test_path, 'r') as fens:
+            failures = 0
+            for count, fen in enumerate(fens):
+                print('\r[%4d] ' % (count+1), end='')
+                if not test_func(engine, fen):
+                    print(fen, end='')
+                    failures += 1
+
+        result = "%d failures" % failures if failures else "success"
+
+        print("\r%s test of %s: %s" % (test_func.__name__, engine_name, result))
 
 
 if __name__ == "__main__":
-    test("weiss.exe", "EPDs/mate3-w.epd", lambda x, y : True)
+    test("EPDs/mate3-w.epd", lambda x, y : True)

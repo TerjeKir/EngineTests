@@ -2,9 +2,9 @@ from test import test
 
 
 # Tests whether the engine finds a short enough mate within the time limit
-def mate_test(engine_path, test_path, length, limit_in_ms):
+def mate_test(test_path, length, limit_in_ms):
 
-    def find_mate(engine, fen):
+    def mate(engine, fen):
         engine.ucinewgame()
         engine.position(fen)
         engine.go(mate=length, movetime=limit_in_ms)
@@ -18,8 +18,8 @@ def mate_test(engine_path, test_path, length, limit_in_ms):
 
         return mate_found
 
-    test(engine_path, test_path, find_mate)
+    test(test_path, mate)
 
 
 if __name__ == "__main__":
-    mate_test("weiss.exe", "EPDs/mate3-w.epd", 3, 1000)
+    mate_test("EPDs/mate3-w.epd", 3, 1000)
