@@ -22,4 +22,6 @@ def mate_test(test_path, length, limit_in_ms):
 
 
 if __name__ == "__main__":
-    mate_test("mate3-w.epd", 3, 1000)
+    for depth in range(1, 9):
+        for color in ('w', 'b'):
+            mate_test("mate%d-%s.epd" % (depth, color), depth, 1000)
