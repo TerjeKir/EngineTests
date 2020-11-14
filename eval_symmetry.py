@@ -10,10 +10,9 @@ def eval_symmetry(testfile):
         fen = ' '.join(fen.split()[:4])
         board = chess.Board()
         board.set_epd(fen)
-        mirror_board = board.mirror()
 
         eval        =  engine.eval(fen)
-        mirror_eval = -engine.eval(mirror_board.fen())
+        mirror_eval = -engine.eval(board.mirror().fen())
 
         return eval == mirror_eval
 
