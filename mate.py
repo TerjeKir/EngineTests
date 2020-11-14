@@ -5,6 +5,7 @@ from test import test
 def mate_test(testfile, length, limit_in_ms):
 
     def mate(engine, fen):
+        fen = ' '.join(fen.split()[:4])
         engine.ucinewgame()
         engine.position(fen)
         engine.go(mate=length, movetime=limit_in_ms)
