@@ -9,6 +9,8 @@ class Engine:
     def __init__(self, path, cwd=None):
         self._process = Popen(path, shell=True, cwd=cwd, stdin=PIPE, stdout=PIPE, universal_newlines=True, bufsize=1)
         self.uci()
+        self.set_option("Threads", 1)
+        self.set_option("Hash", 32)
         self.isready()
 
     def _msg_engine(self, msg):
@@ -47,7 +49,7 @@ class Engine:
     def position(self, fen=startpos, moves=None):
         self._msg_engine("position fen %s%s\n" % (fen, " moves %s" % moves if moves else ""))
 
-    # limitstring can be used to provide limits not supported by arguments other arguments
+    # limitstring can be used to provide limits not supported by other arguments
     def go(self, mate=None, movetime=None, limitstring=""):
         if mate:
             limitstring += " mate %d" % mate
