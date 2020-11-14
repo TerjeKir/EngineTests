@@ -8,6 +8,8 @@ engine_path = "engines/"
 win = platform.system() == 'Windows'
 prefix = "" if win else "./"
 
+print_fails = False
+
 # Test template
 def test(testfile, test_func):
 
@@ -20,7 +22,8 @@ def test(testfile, test_func):
             for count, fen in enumerate(fens):
                 print('\r[%4d] ' % (count+1), end='')
                 if not test_func(engine, fen):
-                    print(fen, end='')
+                    if print_fails:
+                        print(fen, end='')
                     failures += 1
 
         result = "%d failures" % failures if failures else "success"
@@ -29,4 +32,4 @@ def test(testfile, test_func):
 
 
 if __name__ == "__main__":
-    test("mate3-w.epd", lambda x, y : True)
+    test("all.epd", lambda x, y : True)
