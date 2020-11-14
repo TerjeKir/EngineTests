@@ -2,7 +2,7 @@ from test import test
 
 
 # Tests whether the engine finds a short enough mate within the time limit
-def mate_test(test_path, length, limit_in_ms):
+def mate_test(testfile, length, limit_in_ms):
 
     def mate(engine, fen):
         engine.ucinewgame()
@@ -18,7 +18,7 @@ def mate_test(test_path, length, limit_in_ms):
 
         return mate_found
 
-    test(test_path, mate)
+    test(testfile, mate)
 
 
 if __name__ == "__main__":

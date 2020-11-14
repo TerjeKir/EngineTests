@@ -4,7 +4,7 @@ from test import test
 
 # Tests whether evaluation is symmetrical or not
 # Relies on 'eval' command returning an evaluation from white p.o.v.
-def eval_symmetry(test_path):
+def eval_symmetry(testfile):
 
     def symmetry(engine, fen):
         fen = ' '.join(fen.split()[:4])
@@ -17,7 +17,7 @@ def eval_symmetry(test_path):
 
         return eval == mirror_eval
 
-    test(test_path, symmetry)
+    test(testfile, symmetry)
 
 
 if __name__ == "__main__":

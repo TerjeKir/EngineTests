@@ -2,7 +2,7 @@ from test import test
 
 
 # Tests whether the engine perft is correct
-def perft_test(test_path, depth):
+def perft_test(testfile, depth):
 
     def perft(engine, fen):
         result = engine.perft(fen, depth)
@@ -11,7 +11,7 @@ def perft_test(test_path, depth):
 
         return result == solution
 
-    test(test_path, perft)
+    test(testfile, perft)
 
 
 if __name__ == "__main__":
