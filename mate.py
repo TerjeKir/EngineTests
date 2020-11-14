@@ -24,5 +24,4 @@ def mate_test(testfile, length, limit_in_ms):
 
 if __name__ == "__main__":
     for depth in range(1, 9):
-        for color in ('w', 'b'):
-            mate_test("mate%d-%s.epd" % (depth, color), depth, 1000)
+        mate_test("mate_in_%d.epd" % depth, depth, 1000)
