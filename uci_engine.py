@@ -58,15 +58,18 @@ class Engine:
 
     ### Non-UCI commands
 
+    ## 'eval'
     # The engine should respond with an evaluation from white's point of view
     def eval(self, fen):
         self.position(fen)
         self._msg_engine("eval\n")
         return int(self._readline())
 
-    # The engine should either print only the node count, or a string where
-    # the node count is the first number to follow 'nodes'
+    ## 'perft <depth> <fen>' or just 'perft <depth>' after a position command
+    # The engine should print the perft count as a line with a single integer or
+    # as part of a string where it is the first digit after 'nodes'/'nodes:' etc
     def perft(self, fen, depth):
+        self.position(fen)
         self._msg_engine("perft %d %s\n" % (depth, fen))
         while True:
             response = self._readline().lower()
