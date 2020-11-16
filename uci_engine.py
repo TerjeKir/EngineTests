@@ -87,7 +87,3 @@ class Engine:
                 for token in response.split('nodes')[1].split():
                     if token.isdigit():
                         return int(token)
-
-engine = Engine("weiss.exe", "engines/")
-engine.go(mate = 5, movetime = 1000, depth = 8, limitstring="infinite")
-engine.go(mate = 5, depth = 8)
