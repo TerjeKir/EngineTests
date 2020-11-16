@@ -55,11 +55,10 @@ class Engine:
         self._msg_engine("position fen %s%s\n" % (fen, " moves %s" % moves if moves else ""))
 
     # limitstring can be used to provide limits not supported by other arguments
-    def go(self, mate=None, movetime=None, limitstring=""):
-        if mate:
-            limitstring += " mate %d" % mate
-        if movetime:
-            limitstring += " movetime %d" % movetime
+    def go(self, mate=None, movetime=None, depth=None, limitstring=""):
+        for key, value in locals().items():
+            if key not in ("self", "limitstring") and value:
+                limitstring += " %s %d" % (key, value)
         self._msg_engine("go %s\n" % limitstring)
 
 
@@ -88,3 +87,7 @@ class Engine:
                 for token in response.split('nodes')[1].split():
                     if token.isdigit():
                         return int(token)
+
+engine = Engine("weiss.exe", "engines/")
+engine.go(mate = 5, movetime = 1000, depth = 8, limitstring="infinite")
+engine.go(mate = 5, depth = 8)
