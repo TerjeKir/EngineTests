@@ -1,12 +1,8 @@
 from uci_engine import Engine
 import os
-import platform
 
 
 engine_path = "engines/"
-
-win = platform.system() == 'Windows'
-prefix = "" if win else "./"
 
 print_fails = False
 
@@ -15,7 +11,7 @@ def test(testfile, test_func):
 
     for engine_name in os.listdir(engine_path):
 
-        engine = Engine(prefix + engine_name, engine_path)
+        engine = Engine(engine_name, engine_path)
 
         with open("testfiles/" + testfile, 'r') as fens:
             failures = 0

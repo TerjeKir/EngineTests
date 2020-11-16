@@ -1,13 +1,18 @@
 from subprocess import Popen, PIPE
+import platform
+
 
 startpos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
+win = platform.system() == 'Windows'
+prefix = "" if win else "./"
 
 
 # Interface for running and communicating with a UCI engine
 class Engine:
 
     def __init__(self, path, cwd=None):
-        self._process = Popen(path, shell=True, cwd=cwd, stdin=PIPE, stdout=PIPE, universal_newlines=True, bufsize=1)
+        self._process = Popen(prefix + path, shell=True, cwd=cwd, stdin=PIPE, stdout=PIPE, universal_newlines=True, bufsize=1)
         self.uci()
         self.set_option("Threads", 1)
         self.set_option("Hash", 32)
