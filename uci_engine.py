@@ -75,6 +75,7 @@ class Engine:
     # The engine should print the perft count as a line with a single integer or
     # as part of a string where it is the first digit after 'nodes'/'nodes:' etc
     def perft(self, fen, depth):
+        self.isready()
         self.position(fen)
         self._msg_engine("perft %d %s\n" % (depth, fen))
         while True:
