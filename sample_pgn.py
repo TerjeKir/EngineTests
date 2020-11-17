@@ -26,11 +26,8 @@ class Visitor(chess.pgn.BaseVisitor):
 
     def end_headers(self):
         if not self.relevant:
-            # Optimization hint: Do not even bother parsing the moves.
             return chess.pgn.SKIP
 
-    # Will also be called for the terminal position of the game.
-    # Keep using visit_move instead, if that's not desired.
     def visit_board(self, board):
         if self.relevant and board.ply() in self.sample_plies:
             self.fens.append(board.fen())
