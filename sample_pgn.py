@@ -40,9 +40,10 @@ class Visitor(chess.pgn.BaseVisitor):
 def sample_pgn():
     with open(dataset, 'r') as pgn, open(output, 'w') as out:
         while True:
-            result, fens = chess.pgn.read_game(pgn, Visitor=Visitor)
-            if not fens:
+            info = chess.pgn.read_game(pgn, Visitor=Visitor)
+            if info is None:
                 break
+            result, fens = info
             for fen in fens:
                 print(fen + " [%s]" % result, file=out)
 
