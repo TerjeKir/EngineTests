@@ -7,6 +7,8 @@ output = "datasets/samples.epd"
 
 samples_per_game = 10
 
+result_translator = { "1-0": "1.0", "1/2-1/2": "0.5", "0-1": "0.0", "*": "" }
+
 
 class Visitor(chess.pgn.BaseVisitor):
     def begin_game(self):
@@ -18,7 +20,7 @@ class Visitor(chess.pgn.BaseVisitor):
         if name == "Termination" and value != "adjudication":
             self.relevant = False
         if name == "Result":
-            self.gameresult = value
+            self.gameresult = result_translator[value]
         if name == "PlyCount":
             self.sample_plies = sample(range(int(value)), min(samples_per_game, int(value)))
 
