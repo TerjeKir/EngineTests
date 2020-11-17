@@ -19,6 +19,8 @@ class Visitor(chess.pgn.BaseVisitor):
             self.relevant = False
         if name == "Result":
             self.gameresult = value
+        if name == "PlyCount":
+            self.sample_plies = sample(range(int(value)), min(samples_per_game, int(value)))
 
     def end_headers(self):
         if not self.relevant:
@@ -28,7 +30,7 @@ class Visitor(chess.pgn.BaseVisitor):
     # Will also be called for the terminal position of the game.
     # Keep using visit_move instead, if that's not desired.
     def visit_board(self, board):
-        if self.relevant:
+        if self.relevant and board.ply() in self.sample_plies:
             self.fens.append(board.fen())
 
     def result(self):
@@ -41,7 +43,7 @@ def sample_pgn():
             result, fens = chess.pgn.read_game(pgn, Visitor=Visitor)
             if not fens:
                 break
-            for fen in sample(fens, min(samples_per_game, len(fens))):
+            for fen in fens:
                 print(fen + " [%s]" % result, file=out)
 
 
