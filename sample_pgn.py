@@ -29,7 +29,7 @@ class Visitor(chess.pgn.BaseVisitor):
             return chess.pgn.SKIP
 
     def visit_board(self, board):
-        if board.ply() in self.sample_plies and not board.is_game_over():
+        if board.ply() in self.sample_plies:
             self.fens.append(board.fen())
 
     def result(self):
