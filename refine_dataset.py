@@ -9,6 +9,7 @@ engine_path = "engines/"
 engine_name = "weiss.exe"
 
 filter_limit = 1000
+search_depth = 6
 
 
 def refine():
@@ -21,20 +22,19 @@ def refine():
             fen = ' '.join(fen.split()[:4]) + " 0 1"
             engine.ucinewgame()
             engine.position(fen)
-            engine.go(depth=6)
+            engine.go(depth=search_depth)
 
             while True:
                 response = engine._readline()
-                if "bestmove" in response:
+                if response.startswith("bestmove"):
                     break
                 final_info = response
 
             # Filter out positions where score is too high or mate
             tokens = final_info.split()
             score = int(tokens[2 + tokens.index("score")])
-            is_mate = "mate" in tokens
 
-            if is_mate or abs(score) > filter_limit:
+            if "mate" in tokens or abs(score) > filter_limit:
                 continue
 
             pv = final_info.split("pv ")[1].split()
