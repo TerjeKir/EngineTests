@@ -61,6 +61,14 @@ class Engine:
         limits += f" {limitstring}" if limitstring else ""
         self._msg_engine(f"go {limits}\n")
 
+        while True:
+            response = self._readline()
+            if response.startswith("bestmove"):
+                bestmove = response.split()[1]
+                break
+            info = response
+        return bestmove, info
+
 
     ### Non-UCI commands
 

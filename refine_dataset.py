@@ -18,26 +18,20 @@ def refine():
 
     with open(dataset, 'r') as fens, open(output, 'w') as out:
         for fen in fens:
-            ## Do an x depth search and save the final given pv
+            ## Do an x depth search
             fen = ' '.join(fen.split()[:4]) + " 0 1"
             engine.ucinewgame()
             engine.position(fen)
-            engine.go(depth=search_depth)
-
-            while True:
-                response = engine._readline()
-                if response.startswith("bestmove"):
-                    break
-                final_info = response
+            _, info = engine.go(depth=search_depth)
 
             # Filter out positions where score is too high or mate
-            tokens = final_info.split()
+            tokens = info.split()
             score = int(tokens[2 + tokens.index("score")])
 
             if "mate" in tokens or abs(score) > filter_limit:
                 continue
 
-            pv = final_info.split("pv ")[1].split()
+            pv = info.split("pv ")[1].split()
 
             ## Follow the pv and save the final fen
             board = chess.Board(fen)
