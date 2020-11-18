@@ -19,6 +19,7 @@ def refine():
         for fen in fens:
             ## Do an x depth search and save the final given pv
             fen = ' '.join(fen.split()[:4]) + " 0 1"
+            engine.ucinewgame()
             engine.position(fen)
             engine.go(depth=6)
 
