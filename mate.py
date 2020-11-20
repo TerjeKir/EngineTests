@@ -1,6 +1,8 @@
 from test import test
 
 
+print_fails = False
+
 # Tests whether the engine finds a short enough mate within the time limit
 def mate_test(testfile, length, limit_in_ms):
 
@@ -19,7 +21,7 @@ def mate_test(testfile, length, limit_in_ms):
 
         return mate_found
 
-    test(testfile, mate)
+    test(testfile, mate, print_fails)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,8 @@
 from test import test
 
 
+print_fails = True
+
 # Tests whether the engine perft is correct
 def perft_test(testfile, depth):
 
@@ -11,7 +13,7 @@ def perft_test(testfile, depth):
 
         return result == solution
 
-    test(testfile, perft)
+    test(testfile, perft, print_fails)
 
 
 if __name__ == "__main__":
