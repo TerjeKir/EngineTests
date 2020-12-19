@@ -2,6 +2,8 @@ import chess
 from test import test
 
 
+print_fails = True
+
 # Tests whether evaluation is symmetrical or not
 # Relies on 'eval' command returning an evaluation from white p.o.v.
 def eval_symmetry(testfile):
@@ -16,7 +18,7 @@ def eval_symmetry(testfile):
 
         return eval == mirror_eval
 
-    test(testfile, symmetry)
+    test(testfile, symmetry, print_fails)
 
 
 if __name__ == "__main__":
