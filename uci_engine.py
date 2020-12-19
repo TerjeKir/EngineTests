@@ -81,7 +81,7 @@ class Engine:
         while True:
             response = self._readline().lower()
             # A line with just a single number should be the perft count
-            if response.isdigit():
+            if response.strip().isdigit():
                 return int(response)
             # A line with 'nodes' should have the perft count as the first subsequent number
             if 'nodes' in response:
