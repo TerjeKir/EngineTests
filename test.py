@@ -4,10 +4,8 @@ import os
 
 engine_path = "engines/"
 
-print_fails = False
-
 # Test template
-def test(testfile, test_func):
+def test(testfile, test_func, print_fails):
 
     for engine_name in os.listdir(engine_path):
 
