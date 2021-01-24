@@ -58,6 +58,7 @@ class Engine:
     # limitstring can be used to provide limits not supported by other arguments
     def go(self, mate=None, movetime=None, depth=None, limitstring=""):
         limits = ' '.join(f"{key} {value}" for key, value in locals().items() if key not in ("self", "limitstring") and value)
+        limits += f" {limitstring}" if limitstring else ""
         self._msg_engine(f"go {limits}\n")
 
 
