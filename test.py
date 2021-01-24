@@ -11,18 +11,18 @@ def test(testfile, test_func, print_fails):
 
         engine = Engine(engine_name, engine_path)
 
-        with open("testfiles/" + testfile, 'r') as fens:
-            failures = 0
+        with open(f"testfiles/{testfile}", 'r') as fens:
+            fail_count = 0
             for count, fen in enumerate(fens):
-                print('\r[%4d] ' % (count+1), end='')
+                print(f"\r[{count+1:4d}] ", end='')
                 if not test_func(engine, fen):
                     if print_fails:
                         print(fen, end='')
-                    failures += 1
+                    fail_count += 1
 
-        result = "%d failures" % failures if failures else "success"
+        result = f"{fail_count} failures" if fail_count else "success"
 
-        print("\r%s test with %s of %s: %s" % (test_func.__name__, testfile, engine_name, result))
+        print(f"\r{test_func.__name__} test with {testfile} of {engine_name}: {result}")
 
 
 if __name__ == "__main__":

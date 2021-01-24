@@ -49,17 +49,16 @@ class Engine:
         self._msg_engine("quit\n")
 
     def set_option(self, name, value):
-        self._msg_engine("setoption name %s value %d\n" %(name, value))
+        self._msg_engine(f"setoption name {name} value {value}\n")
 
     def position(self, fen=startpos, moves=None):
-        self._msg_engine("position fen %s%s\n" % (fen, " moves %s" % moves if moves else ""))
+        moves = f" moves {moves}" if moves else ""
+        self._msg_engine(f"position fen {fen}{moves}\n")
 
     # limitstring can be used to provide limits not supported by other arguments
     def go(self, mate=None, movetime=None, depth=None, limitstring=""):
-        for key, value in locals().items():
-            if key not in ("self", "limitstring") and value:
-                limitstring += " %s %d" % (key, value)
-        self._msg_engine("go %s\n" % limitstring)
+        limits = ' '.join(f"{key} {value}" for key, value in locals().items() if key not in ("self", "limitstring") and value)
+        self._msg_engine(f"go {limits}\n")
 
 
     ### Non-UCI commands
@@ -77,7 +76,7 @@ class Engine:
     def perft(self, fen, depth):
         self.isready()
         self.position(fen)
-        self._msg_engine("perft %d %s\n" % (depth, fen))
+        self._msg_engine(f"perft {depth} {fen}\n")
         while True:
             response = self._readline().lower()
             # A line with just a single number should be the perft count

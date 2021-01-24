@@ -9,7 +9,7 @@ def perft_test(testfile, depth):
     def perft(engine, fen):
         result = engine.perft(fen, depth)
         tokens = fen.split()
-        solution = int(tokens[1 + tokens.index(";D%d" % depth)])
+        solution = int(tokens[1 + tokens.index(f";D{depth}")])
 
         return result == solution
 

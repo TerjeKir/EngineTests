@@ -15,7 +15,7 @@ def mate_test(testfile, length, limit_in_ms):
 
         while True:
             response = engine._readline()
-            mate_found |= "mate %d" % length in response
+            mate_found |= f"mate {length}" in response
             if response.startswith('bestmove'):
                 break
 
@@ -26,4 +26,4 @@ def mate_test(testfile, length, limit_in_ms):
 
 if __name__ == "__main__":
     for depth in range(1, 9):
-        mate_test("mate_in_%d.epd" % depth, depth, 1000)
+        mate_test(f"mate_in_{depth}.epd", depth, 1000)
