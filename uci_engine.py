@@ -12,6 +12,8 @@ prefix = "" if win else "./"
 class Engine:
 
     def __init__(self, path, cwd=None):
+        if ".jar" in path:
+            prefix = f"java -jar "
         self._process = Popen(prefix + path, shell=True, cwd=cwd, stdin=PIPE, stdout=PIPE, universal_newlines=True, bufsize=1)
         self.uci()
         self.set_option("Threads", 1)
