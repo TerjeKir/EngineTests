@@ -9,6 +9,8 @@ def test(testfile, test_func, print_fails):
 
     for engine_name in os.listdir(engine_path):
 
+        if ".jar" in engine_name:
+            engine_name = f"java -jar {engine_name}"
         engine = Engine(engine_name, engine_path)
 
         with open(f"testfiles/{testfile}", 'r') as fens:
