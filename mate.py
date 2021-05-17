@@ -14,7 +14,7 @@ def mate_test(testfile, length, limit_in_ms):
         mate_found = False
 
         while True:
-            response = engine._readline()
+            response = engine.readline()
             mate_found |= f"mate {length}" in response
             if response.startswith('bestmove'):
                 break

@@ -17,4 +17,4 @@ def perft_test(testfile, depth):
 
 
 if __name__ == "__main__":
-    perft_test("perftsuite.epd", 3)
+    perft_test("perftsuite.epd", 5)
