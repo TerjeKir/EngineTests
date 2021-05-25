@@ -1,3 +1,5 @@
+# Original script by Koivisto dev Luecx
+
 import sys
 from uci_engine import Engine
 from math import sqrt
