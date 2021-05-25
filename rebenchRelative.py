@@ -28,7 +28,7 @@ class Result:
 
 def show_header(names):
     print(''.join(f'{name : ^36}|' for name in names))
-    print(''.join(f'{"mu"    : ^18}{"sigma" : ^18}|' for _ in names) + \
+    print(''.join(f'{"mu" : ^18}{"sigma" : ^18}|' for _ in names) + \
           f'{"Sp(1)/Sp(2)" : ^18}{"3*sigma" : ^12}')
     print('+'.join('------------------------------------' for _ in range(len(names) + 1)))
 
