@@ -85,3 +85,8 @@ class Engine:
                 for token in response.split('nodes')[1].split():
                     if token.isdigit():
                         return int(token)
+
+    def bench(name, path=None):
+        engine = Engine(name + ' bench', path=path, noinit=True)
+        bench, _ = engine._process.communicate()
+        return bench

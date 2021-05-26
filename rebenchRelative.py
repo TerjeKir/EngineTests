@@ -55,19 +55,16 @@ show_header(engines)
 # go through all the iterations
 for _ in range(iters):
 
-    for i, name in enumerate(engines):
-        engine = Engine(name + ' bench', noinit=True)
+    for i, bench in enumerate(Engine.bench(engine) for engine in engines):
 
-        #for some reason the output from Halogen has a final blank line
-        while True:
-            line = engine.readline()
-            if not line:
-                break
+        for line in reversed(bench.split('\n')):
             if 'nps' in line:
-                info = line
-
-        nps = int(info.split('nps')[1].strip().split(' ')[0])
-        results[i].add_bench(nps)
+                nps = int(line.split('nps')[0].strip().split(' ')[-1])
+                results[i].add_bench(nps)
+                break
+        else:
+            print("Didn't find bench nps.")
+            quit()
 
     # compute a relative speed difference
     comparison.add_bench(results[0].benches[-1] / results[1].benches[-1] - 1.0)
