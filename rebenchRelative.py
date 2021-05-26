@@ -1,6 +1,7 @@
 # Original script by Koivisto dev Luecx
 
-import sys
+import os
+import re
 from uci_engine import Engine
 from math import sqrt
 
@@ -40,28 +41,29 @@ def show(results, comparison):
           f'{300 * comparison.compute_sigma() : 6.3f} %')
 
 
-iters = int(sys.argv[1])
-engines = sys.argv[2:4]
+# Config
+depth = None
+iterations = 10
+engine_dir = 'engines/'
+engines = [engine for engine in os.listdir(engine_dir)]
 
-# create one result for each engine
-results = [Result() for _ in engines]
+# Regex matching number followed by '(optional whitespace)nps'
+nps_matcher = re.compile(r'\d+(?=\s*nps)')
 
-# comparison between the results
-comparison = Result()
 
-# shows some header for the engines
 show_header(engines)
 
-# go through all the iterations
-for _ in range(iters):
+results = [Result() for _ in engines]
+comparison = Result()
+for _ in range(iterations):
 
-    for i, bench in enumerate(Engine.bench(engine) for engine in engines):
+    for i, bench in enumerate(Engine.bench(engine, depth, engine_dir) for engine in engines):
 
         for line in reversed(bench.split('\n')):
-            if 'nps' in line:
-                nps = int(line.split('nps')[0].strip().split(' ')[-1])
-                results[i].add_bench(nps)
-                break
+            nps = re.search(nps_matcher, line)
+            if (nps == None): continue
+            results[i].add_bench(int(nps[0]))
+            break
         else:
             print("Didn't find bench nps.")
             quit()
