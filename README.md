@@ -36,7 +36,7 @@ Requires the engine to suport these uci commands\
 
 ### Speedup
 
-Tests speed difference between two engines (different patches of the same one). Put two binaries in engines/ and run it.
+Tests speed difference between two engines (different patches of the same one). Put two binaries in engines/ and run it. Runs until interrupted.
 
 Requires the engine to run a benchmark when ran with `bench` as cmd line arg, and output a summary including "x nps" at the end.
 
