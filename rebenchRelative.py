@@ -6,6 +6,13 @@ from uci_engine import Engine
 from math import sqrt
 
 
+# Config
+depth = None
+iterations = 10
+engine_dir = 'engines/'
+engines = [engine for engine in os.listdir(engine_dir)]
+
+
 class Result:
     def __init__(self):
         self.benches = []
@@ -41,15 +48,8 @@ def show(results, comparison):
           f'{300 * comparison.compute_sigma() : 6.3f} %')
 
 
-# Config
-depth = None
-iterations = 10
-engine_dir = 'engines/'
-engines = [engine for engine in os.listdir(engine_dir)]
-
 # Regex matching number followed by '(optional whitespace)nps'
 nps_matcher = re.compile(r'\d+(?=\s*nps)')
-
 
 show_header(engines)
 
