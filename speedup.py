@@ -8,7 +8,6 @@ from math import sqrt
 
 # Config
 depth = None
-iterations = 10
 engine_dir = 'engines/'
 engines = [engine for engine in os.listdir(engine_dir)]
 
@@ -55,20 +54,21 @@ show_header(engines)
 
 results = [Result() for _ in engines]
 comparison = Result()
-for _ in range(iterations):
+try: # No stack trace when interrupted
+    while True:
+        for i, bench in enumerate(Engine.bench(engine, depth, engine_dir) for engine in engines):
+            for line in reversed(bench.split('\n')):
+                nps = re.search(nps_matcher, line)
+                if (nps == None): continue
+                results[i].add_bench(int(nps[0]))
+                break
+            else:
+                print("Didn't find bench nps.")
+                quit()
 
-    for i, bench in enumerate(Engine.bench(engine, depth, engine_dir) for engine in engines):
+        # compute a relative speed difference
+        comparison.add_bench(results[0].benches[-1] / results[1].benches[-1] - 1.0)
 
-        for line in reversed(bench.split('\n')):
-            nps = re.search(nps_matcher, line)
-            if (nps == None): continue
-            results[i].add_bench(int(nps[0]))
-            break
-        else:
-            print("Didn't find bench nps.")
-            quit()
-
-    # compute a relative speed difference
-    comparison.add_bench(results[0].benches[-1] / results[1].benches[-1] - 1.0)
-
-    show(results, comparison)
+        show(results, comparison)
+except:
+    quit(0)

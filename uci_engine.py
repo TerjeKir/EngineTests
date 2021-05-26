@@ -87,6 +87,6 @@ class Engine:
                         return int(token)
 
     def bench(name, depth=None, path=None):
-        engine = Engine(f"{name} bench {depth if (depth) else ''}", path=path, noinit=True)
+        engine = Engine(f"{name} bench {depth if depth else ''}", path=path, noinit=True)
         bench, _ = engine._process.communicate()
         return bench
