@@ -34,6 +34,10 @@ Requires the engine to suport these uci commands\
 `go mate x movetime y`
 
 
+### Speedup
 
+Tests speed difference between two engines (different patches of the same one). Put two binaries in engines/ and run it.
+
+Requires the engine to run a benchmark when ran with `bench` as cmd line arg, and output a summary including "x nps" at the end.
 
 
