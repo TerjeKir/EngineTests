@@ -11,9 +11,10 @@ prefix = "" if win else "./"
 # Interface for running and communicating with a UCI engine
 class Engine:
 
-    def __init__(self, name, path=None):
+    def __init__(self, name, path=None, noinit=False):
         _prefix = "java -jar " if "jar" in name else prefix
         self._process = Popen(_prefix + name, shell=True, cwd=path, stdin=PIPE, stdout=PIPE, universal_newlines=True, bufsize=1)
+        if noinit: return
         self.uci()
         self.set_option("Threads", 1)
         self.set_option("Hash", 32)
@@ -84,3 +85,8 @@ class Engine:
                 for token in response.split('nodes')[1].split():
                     if token.isdigit():
                         return int(token)
+
+    def bench(name, depth=None, path=None):
+        engine = Engine(f"{name} bench {depth if depth else ''}", path=path, noinit=True)
+        bench, _ = engine._process.communicate()
+        return bench
