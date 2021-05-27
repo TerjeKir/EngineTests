@@ -47,8 +47,8 @@ for name in engines:
             engine.ucinewgame()
             engine.position(position)
             engine.isready()
-
             engine.go(movetime=movetime)
+
             while True:
                 l = engine.readline()
                 if l.startswith('bestmove'):
@@ -59,7 +59,7 @@ for name in engines:
 
         nps = int(total_nps / len(positions))
         speeds[name].append(nps)
-        print(f'{threads}: {nps}')
+        print(f'{threads}: {nps : >9} ({nps / speeds[name][0]: 5.2f})')
 
 
 plt.grid()
