@@ -28,7 +28,7 @@ class Result:
         if len(self.benches) < 2:
             return 0
         mu = self.compute_mu()
-        return 1.0 / (len(self.benches) - 1) * sum((x - mu) ** 2 for x in self.benches)
+        return 1.0 / (len(self.benches) - 1) * sum((x - mu) ** 2 for x in self.benches) / len(self.benches)
 
     def compute_sigma(self):
         return sqrt(self.compute_sigma_squared())
